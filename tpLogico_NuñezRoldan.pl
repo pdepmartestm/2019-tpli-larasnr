@@ -59,64 +59,78 @@ es_hombre(santiago).
 
 %reglas
       %para familia de sangre
-padre(Padre,Hijo):- hijo_de(Hijo,Padre),
+padre(Padre,Hijo):-
+    hijo_de(Hijo,Padre),
     es_hombre(Padre),
     Hijo\= ana,
     Hijo\= facundo.
-madre(Madre,Hijo):- hijo_de(Hijo,Madre),
+madre(Madre,Hijo):-
+    hijo_de(Hijo,Madre),
     es_mujer(Madre),
     Hijo\= ana,
     Hijo\= facundo.
-hermanos(Hermano1,Hermano2):- padre(Padre,Hermano1),
+hermanos(Hermano1,Hermano2):-
+    padre(Padre,Hermano1),
     padre(Padre,Hermano2),
     madre(Madre,Hermano1),
     madre(Madre,Hermano2),Hermano1\=Hermano2.
 
-tio(Tio,Sobrino):- hijo_de(Sobrino,Hermano_tio),
+tio(Tio,Sobrino):-
+    hijo_de(Sobrino,Hermano_tio),
     hermanos(Hermano_tio,Tio),
     es_hombre(Tio),
     Sobrino\= ana,
     Sobrino\= facundo.
-tia(Tia,Sobrino):- hijo_de(Sobrino,Hermano_tia),
+tia(Tia,Sobrino):-
+    hijo_de(Sobrino,Hermano_tia),
     hermanos(Hermano_tia,Tia),
     es_mujer(Tia),
     Sobrino\= ana,
     Sobrino\= facundo.
 
       %para familia no emparentada
-hermanastros(Hermano1,Hermano2):-hijo_de(Hermano1,PadreOmadre),
+hermanastros(Hermano1,Hermano2):-
+    hijo_de(Hermano1,PadreOmadre),
     hijo_de(Hermano2,PadreOmadre),
     no_de_sangre(Hermano1),
     Hermano1\=Hermano2.
-hermanastros(Hermano1,Hermano2):-hijo_de(Hermano1,PadreOmadre),
+hermanastros(Hermano1,Hermano2):-
+    hijo_de(Hermano1,PadreOmadre),
     hijo_de(Hermano2,PadreOmadre),
     no_de_sangre(Hermano2),
     Hermano1\=Hermano2.
 
-padrastro(Padrastro,Hijastro):-hijo_de(Hijastro,Padrastro),
+padrastro(Padrastro,Hijastro):-
+    hijo_de(Hijastro,Padrastro),
     es_hombre(Padrastro),
     no_de_sangre(Hijastro).
-madrastra(Madrastra,Hijastro):-hijo_de(Hijastro,Madrastra),
+madrastra(Madrastra,Hijastro):-
+    hijo_de(Hijastro,Madrastra),
     es_mujer(Madrastra),
     no_de_sangre(Hijastro).
 
-tio_politico(TioP,Sobrino_a):- hijo_de(Primo_a,TioP),
+tio_politico(TioP,Sobrino_a):-
+    hijo_de(Primo_a,TioP),
     tia(Tia,Sobrino_a),
     hijo_de(Primo_a,Tia),
     es_hombre(TioP).
-tia_politica(TiaP,Sobrino_a):- hijo_de(Primo_a,TiaP),
+tia_politica(TiaP,Sobrino_a):-
+    hijo_de(Primo_a,TiaP),
     tio(Tio,Sobrino_a),
     hijo_de(Primo_a,Tio),
     es_mujer(TiaP).
 
       %para los dos casos, estén o no emparentados
-abuelo(Abuelo,Nieto):- hijo_de(PadreOMadre,Abuelo),
+abuelo(Abuelo,Nieto):-
+    hijo_de(PadreOMadre,Abuelo),
     hijo_de(Nieto,PadreOMadre),
     es_hombre(Abuelo).
-abuela(Abuela,Nieto):- hijo_de(PadreOMadre,Abuela),
+abuela(Abuela,Nieto):-
+    hijo_de(PadreOMadre,Abuela),
     hijo_de(Nieto,PadreOMadre),
     es_mujer(Abuela).
-primos(Primo1,Primo2):-hijo_de(Primo1,PadreOMadre_primo1),
+primos(Primo1,Primo2):-
+    hijo_de(Primo1,PadreOMadre_primo1),
     hijo_de(Primo2,PadreOMadre_primo2),
     hermanos(PadreOMadre_primo1,PadreOMadre_primo2).
 
